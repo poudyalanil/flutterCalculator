@@ -27,6 +27,44 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String output = "0";
+  String newOutput = "0";
+  int num1 = 0;
+  int num2 = 0;
+  String operand = "";
+
+  buttonPressed(String number){
+    print(number);
+if(number =="CLEAR"){
+   newOutput = "0";
+   num1 = 0;
+   num2 = 0;
+   operand = "";
+  output ="0";
+} else if(number =="+" || number =="-"){
+   num1 = int.parse(output);
+   operand = number;
+   newOutput = "0";
+
+}else if(number == "="){
+  num2 = int.parse(output);
+  if(operand =="+"){
+    newOutput = (num1+num2).toString();
+
+  }else if(operand =="-"){
+    newOutput = (num1-num2).toString();
+  }
+  num1 = 0;
+  num2 = 0;
+  operand = "";
+
+}else{
+  newOutput = newOutput + number;
+}
+print(newOutput);
+setState(() {
+  output = newOutput;
+});
+  }
 
   buildButton(String num) {
     return new Expanded(
@@ -36,9 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
           num,
           style: new TextStyle(fontSize: 25.0),
         ),
-        onPressed: () => {
-          // TODO
-        },
+        onPressed: () =>
+          buttonPressed(num)
+        ,
         color: Colors.white,
         textColor: Colors.black54,
       ),
